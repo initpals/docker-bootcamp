@@ -1,0 +1,29 @@
+<div *ngIf="currentPerson" class="edit-form">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        [(ngModel)]="currentPerson.name"
+        name="name"
+        autocomplete="off"
+      />
+    </div>
+  </form>
+
+  <button class="badge badge-danger mr-2" (click)="deletePerson()">
+    Delete
+  </button>
+
+  <button type="submit" class="badge badge-success" (click)="updatePerson()">
+    Update
+  </button>
+  <p>{{ message }}</p>
+</div>
+
+<div *ngIf="!currentPerson">
+  <br />
+  <p>Cannot access this Person...</p>
+</div>

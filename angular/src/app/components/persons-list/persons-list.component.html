@@ -1,0 +1,66 @@
+<!-- <div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="name" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchTitle()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Persons List</h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let Person of Persons; let i = index" [class.active]="i == currentIndex"
+        (click)="setActivePerson(Person, i)">
+        {{ Person.name }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllPersons()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentPerson">
+      <h4>Person</h4>
+      <div>
+        <label><strong>Name:</strong></label> {{ currentPerson.name }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/Persons/{{ currentPerson.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentPerson">
+      <br />
+      <p>Please click on a Person...</p>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+      <thead>
+        <a routerLink="/add" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new</a>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let Person of Persons; let i = index" [class.active]="i == currentIndex"
+        (click)="setActivePerson(Person, i)">
+        <td>{{ Person.id }}</td>
+        <td>{{ Person.name }}</td>
+        <td class="text-center">
+          <a class='btn btn-info btn-xs' href="#" routerLink="/Persons/{{ Person.id }}"><span class="glyphicon glyphicon-edit"></span>
+            Edit</a> <a href="#" class="btn btn-danger btn-xs"  (click)="deletePerson(Person.id)"><span class="glyphicon glyphicon-remove"></span> Del</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

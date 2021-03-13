@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  fullstack-database:
+    image: fullstack-postgres-image
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    restart: always
+    container_name: fullstack-postgres-container
+    networks:
+      - fullstack-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  fullstack-node:
+    image: fullstack-node-image
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    ports:
+      - "50511:50511"
+    restart: always
+    container_name: fullstack-node-container
+    networks:
+      - fullstack-network
+    depends_on:
+      fullstack-database:
+        condition: service_healthy
+  fullstack-angular:
+    depends_on:
+      - fullstack-node
+    image: fullstack-angular-image
+    build:
+      context: ./angular
+      dockerfile: Dockerfile
+    ports:
+      - "50500:50500"
+    restart: always
+    container_name: fullstack-angular-container
+    networks:
+      - fullstack-network
+networks:
+  fullstack-network:
+    driver: bridge
